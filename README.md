@@ -9,6 +9,10 @@ Deployed link-https://bugs-bunny-mu.vercel.app/login/
 **Demo login:** `admin@bugsbunny.local` / `admin123`
 
 ---
+
+![Bugsbunny Overview](./bugsbunny-overview.png)
+
+---
 JUDGE QUICK START
 
 Suggested 3-minute flow:

@@ -1,0 +1,5 @@
+bugsbunny
+*.exe
+.env
+uploads/*
+!uploads/.gitkeep

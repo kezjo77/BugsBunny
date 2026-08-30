@@ -798,6 +798,51 @@ func main() {
 	}
 	defer dbpool.Close()
 	fmt.Println("✅ Connected to Bugsbunny Database!")
+    // Auto-initialize a fresh database on startup
+var tableExists bool
+
+err = dbpool.QueryRow(
+    context.Background(),
+    `SELECT EXISTS (
+        SELECT FROM information_schema.tables
+        WHERE table_schema = 'public'
+        AND table_name = 'users'
+    )`,
+).Scan(&tableExists)
+
+if err != nil {
+    log.Fatalf("Failed to check database schema: %v", err)
+}
+
+if !tableExists {
+    fmt.Println("🛠 Fresh database detected — initializing schema...")
+
+    schemaSQL, err := os.ReadFile("schema.sql")
+    if err != nil {
+        log.Fatalf("Failed to read schema.sql: %v", err)
+    }
+
+    _, err = dbpool.Exec(context.Background(), string(schemaSQL))
+    if err != nil {
+        log.Fatalf("Failed to execute schema.sql: %v", err)
+    }
+
+    fmt.Println("🌱 Loading seed data...")
+
+    seedSQL, err := os.ReadFile("seed.sql")
+    if err != nil {
+        log.Fatalf("Failed to read seed.sql: %v", err)
+    }
+
+    _, err = dbpool.Exec(context.Background(), string(seedSQL))
+    if err != nil {
+        log.Fatalf("Failed to execute seed.sql: %v", err)
+    }
+
+    fmt.Println("✅ Database initialized successfully!")
+} else {
+    fmt.Println("✅ Database schema already exists!")
+}
 
 	// Initialize the Plugin System
 	pluginManager, err = NewPluginManager(context.Background(), "./plugins")

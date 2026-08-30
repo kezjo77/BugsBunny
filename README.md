@@ -2,23 +2,39 @@
 
 A full-stack bug/issue tracker built around a **real, server-enforced lifecycle engine** — not a flat list of tickets with a status dropdown you can set to anything. Every state change, assignment, and relationship is validated, logged, and explainable after the fact.
 
-Built for CloneFest — Legacy Modernisation: PrivateBin/Bug Tracker challenge.
+Built for CloneFest — Bug Tracker challenge.
+
 Deployed link-https://bugs-bunny-mu.vercel.app/login/
+
 **Demo login:** `admin@bugsbunny.local` / `admin123`
 
 ---
+JUDGE QUICK START
 
+Suggested 3-minute flow:
+1. Log in → Dashboard shows live bug metrics (open/critical/overdue/aging)
+2. Open Issue Queue → filter/search, note the Bug DNA clustering
+3. Open any issue → try the 7 insight buttons: Health Score, Why Is This Stuck?,
+   Find Duplicates, SLA Forecast, Blast Radius, Time-Travel Replay, Summary Report
+4. Edit an issue → change status → notice invalid lifecycle transitions are rejected
+5. Add a comment with @mention, add a relationship (blocks/related-to), check Activity tab
+
+Everything above — including the 5 "intelligence" features — runs with
+zero external AI API calls. It's all deterministic logic over real audit-log
+data
+
+---
 ## Why this stands out
 
 Most student bug trackers are CRUD wrappers around a `status` column. Bugsbunny enforces the entire lifecycle **server-side**, keeps a full audit trail of everything that happens to an issue, and ships five deterministic intelligence features — **zero external AI/API dependency, nothing to fail at demo time** — that most trackers, student or commercial, don't bother building:
 
 | Feature | What it actually does |
 |---|---|
-| 🧬 **Bug DNA** | Clusters open bugs by component + shared keywords to surface *where* the codebase is actually fragile |
-| 💥 **Blast Radius** | Walks the `blocks` / `blocked-by` graph to show exactly what unblocks if a given bug is resolved |
-| ⏱ **SLA Breach Forecast** | Predicts a breach *before* it happens, using severity/priority-weighted deadlines |
-| 🕰 **Time-Travel Replay** | Reconstructs an issue's exact state at any past moment by replaying its own audit log |
-| 📋 **Auto Summary Report** | One-click, copy-ready incident summary generated from real activity data |
+|  **Bug DNA** | Clusters open bugs by component + shared keywords to surface *where* the codebase is actually fragile |
+|  **Blast Radius** | Walks the `blocks` / `blocked-by` graph to show exactly what unblocks if a given bug is resolved |
+|  **SLA Breach Forecast** | Predicts a breach *before* it happens, using severity/priority-weighted deadlines |
+|  **Time-Travel Replay** | Reconstructs an issue's exact state at any past moment by replaying its own audit log |
+|  **Auto Summary Report** | One-click, copy-ready incident summary generated from real activity data |
 
 Plus a **WASM plugin architecture** (via [wazero](https://wazero.io)): third-party logic — like our SLA checker — runs sandboxed *inside* the Go server itself, compiled ahead-of-time, no external microservice or exec() call needed.
 
@@ -106,7 +122,7 @@ After the schema is loaded on your managed Postgres (`psql $DATABASE_URL < schem
 
 ---
 
-## Where to Look (for judges)
+## Where to Look
 
 | Page | What to check |
 |---|---|

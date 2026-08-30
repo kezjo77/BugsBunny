@@ -3,7 +3,7 @@
 A full-stack bug/issue tracker built around a **real, server-enforced lifecycle engine** — not a flat list of tickets with a status dropdown you can set to anything. Every state change, assignment, and relationship is validated, logged, and explainable after the fact.
 
 Built for CloneFest — Legacy Modernisation: PrivateBin/Bug Tracker challenge.
-
+Deployed link-https://bugs-bunny-mu.vercel.app/login/
 **Demo login:** `admin@bugsbunny.local` / `admin123`
 
 ---
